@@ -34,6 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     var productData = Provider.of<Product>(context).product;
+
     return Scaffold(
       body: Container(
         padding: const EdgeInsets.only(top: 18),
@@ -221,12 +222,22 @@ class _HomeScreenState extends State<HomeScreen> {
                 (BuildContext context, int ind) {
                   return InkWell(
                     onTap: () {
-                      Navigator.of(context)
-                          .push(PageRouteBuilder(pageBuilder: (_, __, ___) {
-                        return ProductDetailScreen(
-                          index: ind,
-                        );
-                      }));
+                      // Navigator.of(context)
+                      //     .push(PageRouteBuilder(pageBuilder: (_, __, ___) {
+                      //   return ProductDetailScreen(
+                      //     index: ind,
+                      //   );
+                      // }));
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (BuildContext c) => ProductDetailScreen(
+                            index: ind,
+                          ),
+                        ),
+                      ).then((val) {
+                        setState(() {});
+                      });
                     },
                     child: Card(
                       child: Column(
@@ -240,6 +251,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   fit: BoxFit.fill,
                                 ),
                               ),
+                              // NOTE - Adding favourites
                               Container(
                                 alignment: Alignment.topRight,
                                 padding: EdgeInsets.only(top: 10, right: 8),
