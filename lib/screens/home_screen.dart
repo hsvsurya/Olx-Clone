@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:olx_clone/Models/products.dart';
 import 'package:olx_clone/screens/product_detail_screen.dart';
+import 'package:olx_clone/screens/search_result_screen.dart';
 import 'package:outline_search_bar/outline_search_bar.dart';
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:provider/provider.dart';
+import 'package:adaptive_dialog/adaptive_dialog.dart';
 
 class HomeScreen extends StatefulWidget {
   static const routeName = 'home-screen';
@@ -15,6 +17,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  TextEditingController _search = TextEditingController();
+  List _searchItems = [];
   Column _categories(Icon icon, String title, double padding) {
     return Column(
       // mainAxisAlignment: MainAxisAlignment.center,
@@ -67,10 +71,55 @@ class _HomeScreenState extends State<HomeScreen> {
                         Container(
                           width: MediaQuery.of(context).size.width,
                           height: 50,
+
+                          // NOTE - Search Bar
+
                           child: OutlineSearchBar(
+                            textEditingController: _search,
                             borderColor: Colors.black,
                             borderRadius: BorderRadius.circular(20),
                             hintText: 'Find Cars, Mobiles and more...',
+                            onSearchButtonPressed: (String str) {
+                              // print(_searchItems);
+                              setState(() {
+                                _searchItems.clear();
+                                if (str != "") {
+                                  for (var i = 0; i < productData.length; i++) {
+                                    if (productData[i]
+                                        .productName
+                                        .toLowerCase()
+                                        .contains(str.toLowerCase())) {
+                                      _searchItems.add(productData[i]);
+                                    }
+                                  }
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (_) {
+                                        return SearchResultScreen(
+                                          searchData: _searchItems,
+                                        );
+                                      },
+                                    ),
+                                  ).then((val) {
+                                    setState(() {});
+                                  });
+                                } else if (str == "") {
+                                  _searchItems.clear();
+
+                                  // NOTE - Shows alert dialog when we pressed search without entering anything.
+
+                                  showOkAlertDialog(
+                                    context: context,
+                                    alertStyle: AdaptiveStyle.adaptive,
+                                    title: 'Error',
+                                    message:
+                                        'Please enter something to search. You cannot search empty',
+                                    okLabel: 'Ok',
+                                  );
+                                }
+                              });
+                            },
                           ),
                         ),
                         Row(
@@ -228,6 +277,13 @@ class _HomeScreenState extends State<HomeScreen> {
                       //     index: ind,
                       //   );
                       // }));
+
+                      /**NOTE - When we push to one page and made changes there
+                       *   which effects the home page, the changes made there should
+                       *   be immediately visible after popping out from the child page
+                       *   then this approach is used.
+                       */
+
                       Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -246,6 +302,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             children: [
                               Container(
                                 height: 150,
+                                width: MediaQuery.of(context).size.width / 2,
                                 child: Image.network(
                                   productData[ind].imageUrl,
                                   fit: BoxFit.fill,

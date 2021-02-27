@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 class ProductDetailData {
   final String brand;
   final String model;
-  ProductDetailData({this.brand, this.model});
+  final String usage;
+  ProductDetailData({this.brand, this.model, this.usage});
 }
 
 class ProductData {
@@ -39,7 +40,8 @@ class Product extends ChangeNotifier {
       location: 'Mars',
       price: '₹ 1,00,000',
       sellingStatus: false,
-      productDetailData: ProductDetailData(brand: 'Mars', model: 'Red Planet'),
+      productDetailData: ProductDetailData(
+          brand: 'Mars', model: 'Red Planet', usage: '0 days'),
     ),
     ProductData(
       imageUrl:
@@ -50,8 +52,8 @@ class Product extends ChangeNotifier {
       location: 'Bangalore,Karnataka',
       price: '₹ 1,000/pc',
       sellingStatus: false,
-      productDetailData:
-          ProductDetailData(brand: 'Parx', model: 'Retro style full hands'),
+      productDetailData: ProductDetailData(
+          brand: 'Parx', model: 'Retro style full hands', usage: '2 Days'),
     ),
     ProductData(
       imageUrl:
@@ -64,7 +66,8 @@ class Product extends ChangeNotifier {
       sellingStatus: false,
       productDetailData: ProductDetailData(
           brand: 'Titan',
-          model: 'Workwear Watch with Anthracite Dial & Metal Strap'),
+          model: 'Workwear Watch with Anthracite Dial & Metal Strap',
+          usage: '3 Months'),
     ),
     ProductData(
       imageUrl:
@@ -76,8 +79,8 @@ class Product extends ChangeNotifier {
       location: 'Mumbai,Maharashtra',
       price: '₹ 20,000',
       sellingStatus: false,
-      productDetailData:
-          ProductDetailData(brand: 'Samsung', model: 'Galaxy s7 edge'),
+      productDetailData: ProductDetailData(
+          brand: 'Samsung', model: 'Galaxy s7 edge', usage: '1 Year'),
     ),
     ProductData(
       imageUrl:
@@ -88,7 +91,8 @@ class Product extends ChangeNotifier {
       location: 'Cuttak,Odisha',
       price: '₹ 40,000',
       sellingStatus: false,
-      productDetailData: ProductDetailData(brand: 'Dell', model: 'Vostro 5042'),
+      productDetailData: ProductDetailData(
+          brand: 'Dell', model: 'Vostro 5042', usage: '2 Weeks'),
     ),
     ProductData(
       imageUrl:
@@ -99,8 +103,10 @@ class Product extends ChangeNotifier {
       location: 'Vizag,Andhra Pradesh',
       price: '₹ 72,000',
       sellingStatus: false,
-      productDetailData:
-          ProductDetailData(brand: 'Beige', model: 'Beige Almo Fabric Sofa 3s'),
+      productDetailData: ProductDetailData(
+          brand: 'Beige',
+          model: 'Beige Almo Fabric Sofa 3s',
+          usage: '4 Months'),
     ),
     ProductData(
       imageUrl:
@@ -113,6 +119,34 @@ class Product extends ChangeNotifier {
       sellingStatus: false,
       productDetailData:
           ProductDetailData(brand: 'Dog', model: 'Yellow labrador'),
+    ),
+    ProductData(
+      imageUrl:
+          'https://images.pexels.com/photos/1298601/pexels-photo-1298601.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
+      desc:
+          'Black X-Box controller which is in good condition with moderate usage',
+      productName: 'X-Box Controller',
+      isFav: false,
+      location: 'Pune,Maharashtra',
+      price: '₹ 20,000',
+      sellingStatus: false,
+      productDetailData: ProductDetailData(
+          brand: 'Microsoft', model: 'X-Box controller', usage: '6 Weeks'),
+    ),
+    ProductData(
+      imageUrl:
+          'https://www.prodirectcricket.com/ProductImages/Main/193889_Main_Thumb_0381209.jpg',
+      desc: 'Bat which is seasoned carefully',
+      productName: 'Cricket Bat',
+      isFav: false,
+      location: 'Mysore,Karnataka',
+      price: '₹ 2,000',
+      sellingStatus: false,
+      productDetailData: ProductDetailData(
+        brand: 'Kookaburra',
+        model: 'Bat',
+        usage: '1 Month',
+      ),
     ),
   ];
 }

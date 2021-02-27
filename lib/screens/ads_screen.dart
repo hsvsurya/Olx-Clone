@@ -60,6 +60,7 @@ class _FavScreenState extends State<FavScreen> {
                         children: [
                           Container(
                             height: 150,
+                            width: MediaQuery.of(context).size.width / 2,
                             child: Image.network(
                               _favourites[ind].imageUrl,
                               fit: BoxFit.fill,

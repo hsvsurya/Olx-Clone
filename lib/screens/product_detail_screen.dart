@@ -63,7 +63,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
             ),
           ),
           Container(
-            padding: EdgeInsets.only(top: 19, left: 50),
+            padding: EdgeInsets.only(top: 15, left: 50),
             child: Text(
               'Brand\t\t\t\t :\t\t\t\t\t\t  ${productData[widget.index].productDetailData.brand}',
               style: TextStyle(fontSize: 15),
@@ -76,6 +76,15 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
               style: TextStyle(fontSize: 15),
             ),
           ),
+          productData[widget.index].productDetailData.usage == null
+              ? Text('')
+              : Container(
+                  padding: EdgeInsets.only(top: 19, left: 50),
+                  child: Text(
+                    'Usage\t\t\t\t :\t\t\t\t\t\t  ${productData[widget.index].productDetailData.usage}',
+                    style: TextStyle(fontSize: 15),
+                  ),
+                ),
           Container(
             padding: EdgeInsets.only(top: 19, left: 20),
             child: Text(
@@ -84,13 +93,60 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
             ),
           ),
           Container(
-            padding: EdgeInsets.only(top: 19, left: 50),
+            padding: EdgeInsets.only(top: 15, left: 50),
             child: Text(
               '${productData[widget.index].desc}',
               style: TextStyle(fontSize: 15),
             ),
           ),
         ],
+      ),
+      bottomNavigationBar: BottomAppBar(
+        elevation: 3,
+        child: Row(
+          children: [
+            Container(
+              height: 69,
+              width: MediaQuery.of(context).size.width / 2.1,
+              padding: EdgeInsets.only(left: 18, bottom: 10, top: 6),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: RaisedButton.icon(
+                  color: Color.fromARGB(255, 9, 49, 64),
+                  icon: Icon(
+                    Icons.messenger_outline,
+                    color: Colors.white,
+                  ),
+                  label: Text(
+                    'Chat',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  onPressed: () {},
+                ),
+              ),
+            ),
+            Container(
+              height: 69,
+              width: MediaQuery.of(context).size.width / 2.1,
+              padding: EdgeInsets.only(left: 10, bottom: 10, top: 6),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: RaisedButton.icon(
+                  color: Color.fromARGB(255, 9, 49, 64),
+                  icon: Icon(
+                    Icons.phone_outlined,
+                    color: Colors.white,
+                  ),
+                  label: Text(
+                    'Call',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  onPressed: () {},
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

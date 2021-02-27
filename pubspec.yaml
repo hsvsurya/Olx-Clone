@@ -32,6 +32,7 @@ dependencies:
   page_transition:
   persistent_bottom_nav_bar: ^3.1.0
   outline_search_bar: ^1.0.3
+  adaptive_dialog: ^0.9.4
   community_material_icon: ^5.8.55
   provider: ^4.3.3
 
