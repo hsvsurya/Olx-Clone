@@ -148,5 +148,65 @@ class Product extends ChangeNotifier {
         usage: '1 Month',
       ),
     ),
+    ProductData(
+      imageUrl:
+          'https://images.unsplash.com/photo-1581605405669-fcdf81165afa?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80',
+      desc: 'Travel Bag with no repairs',
+      productName: 'Travel Bag',
+      isFav: false,
+      location: 'Trivandrum,Kerala',
+      price: '₹ 2,500',
+      sellingStatus: false,
+      productDetailData: ProductDetailData(
+        brand: 'Volunteer',
+        model: 'Bag',
+        usage: '2 Months',
+      ),
+    ),
+    ProductData(
+      imageUrl:
+          'https://images.unsplash.com/photo-1556449895-a33c9dba33dd?ixid=MXwxMjA3fDB8MHxzZWFyY2h8NHx8Z3VpdGFyfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+      desc: 'Guitar used moderately',
+      productName: 'Guitar',
+      isFav: false,
+      location: 'Vijayawada,Andhra Pradesh',
+      price: '₹ 12,500',
+      sellingStatus: false,
+      productDetailData: ProductDetailData(
+        brand: 'Volunteer',
+        model: 'Bag',
+        usage: '3 Months',
+      ),
+    ),
+    ProductData(
+      imageUrl:
+          'https://images.unsplash.com/photo-1473186578172-c141e6798cf4?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTN8fHBhaXIlMjBvZiUyMGNoYWlyc3xlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+      desc: '2 chairs without damage',
+      productName: 'Chairs',
+      isFav: false,
+      location: 'Vellore,Tamil Nadu',
+      price: '₹ 2,500/pc',
+      sellingStatus: false,
+      productDetailData: ProductDetailData(
+        brand: 'IKEA',
+        model: 'Chair',
+        usage: '4 Months',
+      ),
+    ),
+    ProductData(
+      imageUrl:
+          'https://cdn.vox-cdn.com/thumbor/pfaAXXsmPP8t1Ao7Gu-gCiS1kbI=/0x0:2040x1360/920x613/filters:focal(857x517:1183x843):format(webp)/cdn.vox-cdn.com/uploads/chorus_image/image/65619647/vpavic_191010_3722_0002.0.jpg',
+      desc: 'Wi-Fi router which is in good condition',
+      productName: 'Wi-Fi Router',
+      isFav: false,
+      location: 'Kolkata,West Bengal',
+      price: '₹ 10,500',
+      sellingStatus: false,
+      productDetailData: ProductDetailData(
+        brand: 'Google',
+        model: 'Google Nest Wi-Fi',
+        usage: '3 Months',
+      ),
+    ),
   ];
 }

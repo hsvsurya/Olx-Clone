@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:olx_clone/Models/products.dart';
@@ -85,6 +84,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                 _searchItems.clear();
                                 if (str != "") {
                                   for (var i = 0; i < productData.length; i++) {
+                                    /** The keyword only searchs for the product name*/
+
                                     if (productData[i]
                                         .productName
                                         .toLowerCase()
@@ -92,19 +93,59 @@ class _HomeScreenState extends State<HomeScreen> {
                                       _searchItems.add(productData[i]);
                                     }
                                   }
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (_) {
-                                        return SearchResultScreen(
-                                          searchData: _searchItems,
-                                        );
-                                      },
-                                    ),
-                                  ).then((val) {
-                                    setState(() {});
-                                  });
-                                } else if (str == "") {
+
+                                  /* NOTE - If the keyword is found we will be pushed to
+                                  *  next page displaying the items in which the keyword is
+                                  *  present.*/
+
+                                  if (_searchItems.isNotEmpty) {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (_) {
+                                          return SearchResultScreen(
+                                            searchData: _searchItems,
+                                          );
+                                        },
+                                      ),
+                                    ).then((val) {
+                                      setState(() {});
+                                    });
+                                  } else {
+                                    /**NOTE - If the entered value is not found an empty page is pushed
+                                     * saying there are no products with the keyword you entered.
+                                    */
+
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (_) {
+                                          return Scaffold(
+                                            appBar: AppBar(
+                                              elevation: 0,
+                                              iconTheme: IconThemeData(
+                                                color: Colors.black,
+                                              ),
+                                              title: Text(
+                                                'Search Items',
+                                                style: TextStyle(
+                                                  color: Colors.black,
+                                                ),
+                                              ),
+                                              backgroundColor: Colors.white,
+                                            ),
+                                            body: Center(
+                                              child: Text(
+                                                'There are no results with keyword $str',
+                                                style: TextStyle(fontSize: 20),
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                    );
+                                  }
+                                } else {
                                   _searchItems.clear();
 
                                   // NOTE - Shows alert dialog when we pressed search without entering anything.
@@ -143,6 +184,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: ListView(
                       scrollDirection: Axis.horizontal,
                       children: [
+                        //SECTION - Categories
+
                         _categories(
                           Icon(
                             Icons.car_rental,
@@ -253,6 +296,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           40.0,
                         ),
                       ],
+
+                      //!!SECTION - Categories
                     ),
                   ),
                   Container(
@@ -266,6 +311,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
             ),
+
+            //NOTE - Products in a grid view
+
             SliverGrid(
               delegate: SliverChildBuilderDelegate(
                 (BuildContext context, int ind) {
@@ -295,71 +343,77 @@ class _HomeScreenState extends State<HomeScreen> {
                         setState(() {});
                       });
                     },
-                    child: Card(
-                      child: Column(
-                        children: [
-                          Stack(
-                            children: [
-                              Container(
-                                height: 150,
-                                width: MediaQuery.of(context).size.width / 2,
-                                child: Image.network(
-                                  productData[ind].imageUrl,
-                                  fit: BoxFit.fill,
-                                ),
-                              ),
-                              // NOTE - Adding favourites
-                              Container(
-                                alignment: Alignment.topRight,
-                                padding: EdgeInsets.only(top: 10, right: 8),
-                                child: CircleAvatar(
-                                  backgroundColor: Colors.white,
-                                  child: IconButton(
-                                    icon: productData[ind].isFav
-                                        ? Icon(Icons.favorite,
-                                            color: Colors.pink)
-                                        : Icon(Icons.favorite_border),
-                                    onPressed: () {
-                                      setState(() {
-                                        productData[ind].isFav =
-                                            !productData[ind].isFav;
-                                      });
-                                    },
-                                    color: Colors.black,
+                    child: Container(
+                      padding: EdgeInsets.symmetric(horizontal: 3),
+                      child: Card(
+                        elevation: 0.4,
+                        child: Column(
+                          children: [
+                            Stack(
+                              children: [
+                                Container(
+                                  height: 150,
+                                  width: MediaQuery.of(context).size.width / 2,
+                                  child: Image.network(
+                                    productData[ind].imageUrl,
+                                    fit: BoxFit.cover,
                                   ),
                                 ),
-                              ),
-                            ],
-                          ),
-                          Container(
-                            padding: EdgeInsets.only(top: 18, left: 5),
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              productData[ind].price,
-                              textAlign: TextAlign.start,
-                            ),
-                          ),
-                          Container(
-                            alignment: Alignment.centerLeft,
-                            padding: const EdgeInsets.only(top: 10, left: 5),
-                            child: Text(productData[ind].productName),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 8.0),
-                            child: Row(
-                              children: [
-                                Icon(
-                                  Icons.location_on_outlined,
-                                  color: Colors.black45,
-                                ),
-                                Text(
-                                  productData[ind].location,
-                                  style: TextStyle(color: Colors.black45),
+
+                                // NOTE - Adding favourites
+
+                                Container(
+                                  alignment: Alignment.topRight,
+                                  padding: EdgeInsets.only(top: 10, right: 8),
+                                  child: CircleAvatar(
+                                    backgroundColor: Colors.white,
+                                    child: IconButton(
+                                      icon: productData[ind].isFav
+                                          ? Icon(Icons.favorite,
+                                              color: Colors.pink)
+                                          : Icon(Icons.favorite_border),
+                                      onPressed: () {
+                                        setState(() {
+                                          productData[ind].isFav =
+                                              !productData[ind].isFav;
+                                        });
+                                      },
+                                      color: Colors.black,
+                                    ),
+                                  ),
                                 ),
                               ],
                             ),
-                          ),
-                        ],
+                            Container(
+                              padding: EdgeInsets.only(top: 18, left: 5),
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                productData[ind].price,
+                                textAlign: TextAlign.start,
+                              ),
+                            ),
+                            Container(
+                              alignment: Alignment.centerLeft,
+                              padding: const EdgeInsets.only(top: 10, left: 5),
+                              child: Text(productData[ind].productName),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 8.0),
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    Icons.location_on_outlined,
+                                    color: Colors.black45,
+                                  ),
+                                  Text(
+                                    productData[ind].location,
+                                    style: TextStyle(color: Colors.black45),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   );

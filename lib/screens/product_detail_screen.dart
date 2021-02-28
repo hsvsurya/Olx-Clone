@@ -27,11 +27,17 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
       body: ListView(
         children: [
           Container(
+            width: MediaQuery.of(context).size.width / 1,
             padding: EdgeInsets.all(10),
             child: Stack(
               children: [
-                Image.network(
-                  '${productData[widget.index].imageUrl}',
+                Container(
+                  child: Center(
+                    child: Image.network(
+                      '${productData[widget.index].imageUrl}',
+                      fit: BoxFit.cover,
+                    ),
+                  ),
                 ),
                 Container(
                   alignment: Alignment.topRight,
@@ -53,6 +59,13 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                   ),
                 ),
               ],
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.only(top: 18, left: 20),
+            child: Text(
+              '${productData[widget.index].price}',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
             ),
           ),
           Container(
@@ -93,7 +106,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
             ),
           ),
           Container(
-            padding: EdgeInsets.only(top: 15, left: 50),
+            padding: EdgeInsets.only(top: 15, left: 50, bottom: 30),
             child: Text(
               '${productData[widget.index].desc}',
               style: TextStyle(fontSize: 15),

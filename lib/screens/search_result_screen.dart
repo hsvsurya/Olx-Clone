@@ -42,7 +42,7 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
                         width: MediaQuery.of(context).size.width / 2,
                         child: Image.network(
                           widget.searchData[ind].imageUrl,
-                          fit: BoxFit.fill,
+                          fit: BoxFit.cover,
                         ),
                       ),
                       Container(
