@@ -84,7 +84,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 _searchItems.clear();
                                 if (str != "") {
                                   for (var i = 0; i < productData.length; i++) {
-                                    /** The keyword only searchs for the product name*/
+                                    /**NOTE - The keyword only searchs for the product name*/
 
                                     if (productData[i]
                                         .productName

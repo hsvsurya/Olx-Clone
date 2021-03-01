@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
+import 'package:olx_clone/Models/chat_users.dart';
 import 'package:olx_clone/screens/account_screen.dart';
 import 'package:olx_clone/screens/ads_screen.dart';
 import 'package:olx_clone/screens/chats_screen.dart';
@@ -17,8 +18,11 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => Product(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<Product>(create: (_) => Product(),),
+        ChangeNotifierProvider<ChatMessages>(create: (_) => ChatMessages(),),
+      ],
       child: MaterialApp(
         title: 'Olx',
         theme: ThemeData(
@@ -55,7 +59,7 @@ class MyApp extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  'Indias leading',
+                  'India\'s leading',
                   style: TextStyle(fontSize: 25, color: Colors.white),
                 ),
                 Text(
@@ -107,7 +111,7 @@ class _MyHomePageState extends State<MyHomePage> {
         physics: NeverScrollableScrollPhysics(),
       ),
 
-      //NOTE - Creating customized buttom navigation bar
+      //NOTE - Creating customized bottom navigation bar
 
       bottomNavigationBar: BottomAppBar(
         elevation: 0,
