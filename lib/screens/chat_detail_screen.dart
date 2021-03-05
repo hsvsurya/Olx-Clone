@@ -12,16 +12,19 @@ class ChatDetailScreen extends StatefulWidget {
 }
 
 class _ChatDetailScreenState extends State<ChatDetailScreen> {
+  TextEditingController _messageController = TextEditingController();
+  int _numOfMsgs = 0;
+
   @override
   Widget build(BuildContext context) {
-    var chatMessage = Provider.of<ChatMessages>(context).chatMessages;
+    var chatMessage = Provider.of<ChatMessages>(context).chatMessage;
+    _numOfMsgs = chatMessage[widget.index].message.length;
     return Scaffold(
       appBar: AppBar(
         elevation: 1,
         backgroundColor: Colors.white,
         iconTheme: IconThemeData(color: Colors.black),
         title: Row(
-          // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Container(
               padding: EdgeInsets.only(right: 4),
@@ -39,16 +42,89 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
           ],
         ),
       ),
-      body: ListView(
-        // padding: EdgeInsets.all(20),
-        reverse: true,
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
         children: [
+          // NOTE - Message bubbles
+
+          Expanded(
+            child: Container(
+              height: MediaQuery.of(context).size.height / 1.2,
+              // width: MediaQuery.of(context).size.width / 1.2,
+              child: ListView.builder(
+                padding: EdgeInsets.only(top: 15),
+                shrinkWrap: true,
+                itemCount: _numOfMsgs,
+                itemBuilder: (_, int ind) {
+                  return Column(
+                    children: [
+                      Row(
+                        /**NOTE - The message bubble align to right or left based on the sender 
+                         * If you are the sender then the msessaged you send will be on right side
+                       */
+
+                        mainAxisAlignment:
+                            chatMessage[widget.index].message[ind].sender
+                                ? MainAxisAlignment.end
+                                : MainAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            child: Container(
+                              padding: EdgeInsets.only(
+                                  left: 14, right: 14, top: 10, bottom: 10),
+                              child: Align(
+                                // NOTE - The message in the message bubble aligns to the direction of the message bubble
+
+                                alignment: (chatMessage[widget.index]
+                                        .message[ind]
+                                        .sender
+                                    ? Alignment.topRight
+                                    : Alignment.topLeft),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20),
+
+                                    /** NOTE - The color of message bubble changes based on sender
+                                     *  grey color if you are sender and blue if your are receiver
+                                     */
+
+                                    color: (chatMessage[widget.index]
+                                            .message[ind]
+                                            .sender
+                                        ? Colors.grey.shade200
+                                        : Colors.blue[200]),
+                                  ),
+                                  padding: EdgeInsets.all(16),
+                                  child: Text(
+                                    chatMessage[widget.index]
+                                        .message[ind]
+                                        .messageText,
+                                    style: TextStyle(fontSize: 15),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  );
+                },
+              ),
+            ),
+          ),
+
+          // NOTE - Send Functionality
+
           Row(
             children: [
+              // NOTE - Text Field
+
               Container(
                 padding: EdgeInsets.only(left: 10, bottom: 10),
                 width: MediaQuery.of(context).size.width / 1.2,
                 child: TextField(
+                  controller: _messageController,
                   decoration: InputDecoration(
                     hintText: 'Message...',
                     focusedBorder: OutlineInputBorder(
@@ -61,6 +137,9 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
                   ),
                 ),
               ),
+
+              // NOTE - Send Button
+
               Container(
                 margin: EdgeInsets.only(left: 10, bottom: 15),
                 decoration: BoxDecoration(
@@ -71,34 +150,19 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
                   alignment: Alignment.center,
                   color: Colors.orange,
                   icon: Icon(Icons.send),
-                  onPressed: () {},
-                ),
-              ),
-            ],
-          ),
-          Row(
-            children: [
-              Container(
-                margin: EdgeInsets.only(left: 5,bottom: 15),
-                child: CircleAvatar(
-                  child: Icon(Icons.person),
-                ),
-              ),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Container(
-                  height: 40,
-                  width: MediaQuery.of(context).size.width / 1.6,
-                  alignment: Alignment.centerLeft,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Colors.teal,
-                  ),
-                  margin: EdgeInsets.only(bottom: 15,left: 10, right: 20),
-                  child: Container(
-                    margin: EdgeInsets.symmetric(horizontal: 5),
-                    child: Text('${chatMessage[widget.index].messageText}'),
-                  ),
+                  onPressed: () {
+                    String msg = _messageController.text.toString();
+                    setState(() {
+                      chatMessage[widget.index].message.add(
+                            Message(
+                              messageText: msg.toString(),
+                              sender: true,
+                            ),
+                          );
+                      _numOfMsgs++;
+                      _messageController.clear();
+                    });
+                  },
                 ),
               ),
             ],

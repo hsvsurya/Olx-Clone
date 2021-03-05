@@ -20,8 +20,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider<Product>(create: (_) => Product(),),
-        ChangeNotifierProvider<ChatMessages>(create: (_) => ChatMessages(),),
+        ChangeNotifierProvider<Product>(
+          create: (_) => Product(),
+        ),
+        ChangeNotifierProvider<ChatMessages>(
+          create: (_) => ChatMessages(),
+        ),
       ],
       child: MaterialApp(
         title: 'Olx',

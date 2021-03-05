@@ -124,8 +124,10 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
               padding: EdgeInsets.only(left: 18, bottom: 10, top: 6),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20),
-                child: RaisedButton.icon(
-                  color: Color.fromARGB(255, 9, 49, 64),
+                child: ElevatedButton.icon(
+                  style: ElevatedButton.styleFrom(
+                    primary: Color.fromARGB(255, 9, 49, 64),
+                  ),
                   icon: Icon(
                     Icons.messenger_outline,
                     color: Colors.white,
@@ -144,8 +146,10 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
               padding: EdgeInsets.only(left: 10, bottom: 10, top: 6),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20),
-                child: RaisedButton.icon(
-                  color: Color.fromARGB(255, 9, 49, 64),
+                child: ElevatedButton.icon(
+                  style: ElevatedButton.styleFrom(
+                    primary: Color.fromARGB(255, 9, 49, 64),
+                  ),
                   icon: Icon(
                     Icons.phone_outlined,
                     color: Colors.white,
