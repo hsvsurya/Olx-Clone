@@ -3,11 +3,13 @@ import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:olx_clone/Models/chat_users.dart';
 import 'package:olx_clone/screens/account_screen.dart';
 import 'package:olx_clone/screens/ads_screen.dart';
+import 'package:olx_clone/screens/category_screen.dart';
 import 'package:olx_clone/screens/chats_screen.dart';
 import 'package:olx_clone/screens/home_screen.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:olx_clone/Models/products.dart';
+import 'package:adaptive_dialog/adaptive_dialog.dart';
 
 BuildContext testContext;
 
@@ -80,6 +82,18 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         routes: {
           ChatScreen.routeName: (ctx) => ChatScreen(),
+          PropertyScreen.routeName: (ctx) => PropertyScreen(),
+          OlxAutoCategory.routeName: (ctx) => OlxAutoCategory(),
+          MobileCategory.routeName: (ctx) => MobileCategory(),
+          JobsCategory.routeName: (ctx) => JobsCategory(),
+          BikesCategory.routeName: (ctx) => BikesCategory(),
+          ElectronicCategory.routeName: (ctx) => ElectronicCategory(),
+          VehicleSpareCategory.routeName: (ctx) => VehicleSpareCategory(),
+          FurnitureCategory.routeName: (ctx) => FurnitureCategory(),
+          FashionCategory.routeName: (ctx) => FashionCategory(),
+          SportsCategory.routeName: (ctx) => SportsCategory(),
+          PetsCategory.routeName: (ctx) => PetsCategory(),
+          ServicesCategory.routeName: (ctx) => ServicesCategory(),
         },
       ),
     );
@@ -127,6 +141,8 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
+              // NOTE - Home Screen
+
               Padding(
                 padding: const EdgeInsets.only(left: 8.0),
                 child: IconButton(
@@ -149,6 +165,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   },
                 ),
               ),
+              // NOTE - Chat Screen
+
               Padding(
                 padding: const EdgeInsets.only(right: 60.0),
                 child: IconButton(
@@ -171,6 +189,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   },
                 ),
               ),
+              // NOTE - Favourite Screen
+
               IconButton(
                 icon: Icon(
                   _favIcon ? Icons.favorite : Icons.favorite_border,
@@ -190,6 +210,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   });
                 },
               ),
+              // NOTE - Account Screen
+
               Padding(
                 padding: const EdgeInsets.only(right: 8.0),
                 child: IconButton(
@@ -230,7 +252,15 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         child: IconButton(
           // elevation: 0,
-          onPressed: () {},
+          onPressed: () {
+            showOkAlertDialog(
+              context: context,
+              alertStyle: AdaptiveStyle.adaptive,
+              title: 'Cannot add',
+              message: 'You cannot add your products right now',
+              okLabel: 'Ok',
+            );
+          },
           icon: Icon(
             Icons.add,
             color: Colors.black,

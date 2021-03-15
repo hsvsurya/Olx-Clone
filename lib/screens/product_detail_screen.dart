@@ -1,6 +1,10 @@
+import 'dart:math';
+
+import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:olx_clone/Models/products.dart';
+import 'package:olx_clone/screens/chat_detail_screen.dart';
 import 'package:provider/provider.dart';
 
 class ProductDetailScreen extends StatefulWidget {
@@ -11,8 +15,10 @@ class ProductDetailScreen extends StatefulWidget {
 }
 
 class _ProductDetailScreenState extends State<ProductDetailScreen> {
+  int ind;
   @override
   Widget build(BuildContext context) {
+    ind = Random().nextInt(5);
     var productData = Provider.of<Product>(context).product;
     return Scaffold(
       appBar: AppBar(
@@ -136,7 +142,11 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                     'Chat',
                     style: TextStyle(color: Colors.white),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(builder: (_) {
+                      return ChatDetailScreen(index: ind);
+                    }));
+                  },
                 ),
               ),
             ),
@@ -158,7 +168,16 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                     'Call',
                     style: TextStyle(color: Colors.white),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    showOkAlertDialog(
+                      context: context,
+                      alertStyle: AdaptiveStyle.adaptive,
+                      title: 'Cannot Call',
+                      message:
+                          'You cannot call as it is not supported right now',
+                      okLabel: 'Ok',
+                    );
+                  },
                 ),
               ),
             ),

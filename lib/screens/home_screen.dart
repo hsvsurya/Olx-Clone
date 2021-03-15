@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:olx_clone/Models/products.dart';
+import 'package:olx_clone/screens/category_screen.dart';
 import 'package:olx_clone/screens/product_detail_screen.dart';
 import 'package:olx_clone/screens/search_result_screen.dart';
 import 'package:outline_search_bar/outline_search_bar.dart';
@@ -18,13 +19,21 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   TextEditingController _search = TextEditingController();
   List _searchItems = [];
-  Column _categories(Icon icon, String title, double padding) {
+  Column _categories(Icon icon, String title, double padding,
+      {String routeName}) {
     return Column(
       // mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Container(
-          padding: EdgeInsets.only(left: padding, right: 20),
-          child: icon,
+        InkWell(
+          onTap: () {
+            Navigator.of(context).pushNamed(routeName).then((value) {
+              setState(() {});
+            });
+          },
+          child: Container(
+            padding: EdgeInsets.only(left: padding, right: 20),
+            child: icon,
+          ),
         ),
         Padding(
           padding: EdgeInsets.only(left: padding, right: 20),
@@ -172,7 +181,16 @@ class _HomeScreenState extends State<HomeScreen> {
                                 'See all',
                                 style: TextStyle(fontStyle: FontStyle.normal),
                               ),
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (_) {
+                                      return CategoryListScreen();
+                                    },
+                                  ),
+                                );
+                              },
                             )
                           ],
                         ),
@@ -194,6 +212,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           'Olx Cars(auto)',
                           25.0,
+                          routeName: OlxAutoCategory.routeName,
                         ),
                         _categories(
                           Icon(
@@ -203,6 +222,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           'Properties',
                           40.0,
+                          routeName: PropertyScreen.routeName,
                         ),
                         _categories(
                           Icon(
@@ -212,6 +232,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           'Mobiles',
                           40.0,
+                          routeName: MobileCategory.routeName,
                         ),
                         _categories(
                           Icon(
@@ -221,6 +242,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           'Jobs',
                           50.0,
+                          routeName: JobsCategory.routeName,
                         ),
                         _categories(
                           Icon(
@@ -230,6 +252,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           'Bikes',
                           40.0,
+                          routeName: BikesCategory.routeName,
                         ),
                         _categories(
                           Icon(
@@ -239,6 +262,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           'Electronics &\n Appliances',
                           40.0,
+                          routeName: ElectronicCategory.routeName,
                         ),
                         _categories(
                           Icon(
@@ -249,6 +273,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           'Commercial Vehcles &\n '
                           '            Spares',
                           40.0,
+                          routeName: VehicleSpareCategory.routeName,
                         ),
                         _categories(
                           Icon(
@@ -258,6 +283,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           'Furniture',
                           40.0,
+                          routeName: FurnitureCategory.routeName,
                         ),
                         _categories(
                           Icon(
@@ -267,6 +293,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           'Fashion',
                           40.0,
+                          routeName: FashionCategory.routeName,
                         ),
                         _categories(
                           Icon(
@@ -276,6 +303,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           'Books Sports & Hobbies',
                           40.0,
+                          routeName: SportsCategory.routeName,
                         ),
                         _categories(
                           Icon(
@@ -285,6 +313,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           'Pets',
                           40.0,
+                          routeName: PetsCategory.routeName,
                         ),
                         _categories(
                           Icon(
@@ -294,6 +323,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           'Services',
                           40.0,
+                          routeName: ServicesCategory.routeName,
                         ),
                       ],
 
@@ -429,6 +459,124 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class CategoryListScreen extends StatefulWidget {
+  @override
+  _CategoryListScreenState createState() => _CategoryListScreenState();
+}
+
+class _CategoryListScreenState extends State<CategoryListScreen> {
+  List<Map> category = [
+    {
+      'icon': Icons.car_rental,
+      'title': Text('Olx Cars(auto)'),
+      'color': Colors.blue[900],
+      'route': OlxAutoCategory.routeName,
+    },
+    {
+      'icon': Icons.home_work,
+      'title': Text('Properties'),
+      'color': Colors.yellow[800],
+      'route': PropertyScreen.routeName,
+    },
+    {
+      'icon': Icons.phone_android,
+      'title': Text('Mobiles'),
+      'color': Colors.cyan,
+      'route': MobileCategory.routeName,
+    },
+    {
+      'icon': Icons.work_rounded,
+      'title': Text('Jobs'),
+      'color': Colors.cyan[700],
+      'route': JobsCategory.routeName,
+    },
+    {
+      'icon': CommunityMaterialIcons.motorbike,
+      'title': Text('Bikes'),
+      'color': Colors.orange[900],
+      'route': BikesCategory.routeName,
+    },
+    {
+      'icon': Icons.desktop_windows_sharp,
+      'title': Text('Electronics & Appliances'),
+      'color': Colors.indigo[900],
+      'route': ElectronicCategory.routeName,
+    },
+    {
+      'icon': CommunityMaterialIcons.car_door,
+      'title': Text('Commercial Vehicles & Spares'),
+      'color': Colors.cyan[800],
+      'route': VehicleSpareCategory.routeName,
+    },
+    {
+      'icon': CommunityMaterialIcons.sofa_single,
+      'title': Text('Furniture'),
+      'color': Colors.red[900],
+      'route': FurnitureCategory.routeName,
+    },
+    {
+      'icon': CommunityMaterialIcons.tshirt_crew,
+      'title': Text('Fashion'),
+      'color': Colors.deepPurpleAccent,
+      'route': FashionCategory.routeName,
+    },
+    {
+      'icon': CommunityMaterialIcons.guitar_electric,
+      'title': Text('Books Sports & Hobbies'),
+      'color': Colors.blueAccent[700],
+      'route': SportsCategory.routeName,
+    },
+    {
+      'icon': CommunityMaterialIcons.dog,
+      'title': Text('Pets'),
+      'color': Colors.deepOrangeAccent,
+      'route': PetsCategory.routeName,
+    },
+    {
+      'icon': CommunityMaterialIcons.bell,
+      'title': Text('Services'),
+      'color': Colors.lightBlue,
+      'route': ServicesCategory.routeName,
+    },
+  ];
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        iconTheme: IconThemeData(color: Colors.black),
+        title: Text(
+          'Categories',
+          style: TextStyle(color: Colors.black),
+        ),
+        backgroundColor: Colors.white,
+      ),
+      body: ListView.builder(
+        itemBuilder: (_, int ind) {
+          return Column(
+            children: [
+              InkWell(
+                onTap: () {
+                  Navigator.of(context).pushNamed(category[ind]['route']);
+                },
+                child: ListTile(
+                  leading: Icon(
+                    category[ind]['icon'],
+                    color: category[ind]['color'],
+                  ),
+                  title: category[ind]['title'],
+                ),
+              ),
+              Divider(height: 4, thickness: 0.6),
+            ],
+          );
+        },
+        itemCount: 12,
       ),
     );
   }

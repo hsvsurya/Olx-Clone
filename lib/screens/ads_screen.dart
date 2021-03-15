@@ -40,8 +40,9 @@ class _FavScreenState extends State<FavScreen> {
       body: _favourites.isEmpty
           ? Center(
               child: Text(
-                'Currently there are no favourites \n           please add some',
+                'Currently there are no favourites\nplease add some',
                 style: TextStyle(fontSize: 19),
+                textAlign: TextAlign.center,
               ),
             )
           : Container(
