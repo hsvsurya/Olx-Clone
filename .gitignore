@@ -9,6 +9,8 @@
 .history
 .svn/
 
+.VsCodeCounter/
+
 # IntelliJ related
 *.iml
 *.ipr
@@ -30,7 +32,7 @@
 .pub-cache/
 .pub/
 /build/
-.VsCodeCounter/
+
 
 # Web related
 lib/generated_plugin_registrant.dart
