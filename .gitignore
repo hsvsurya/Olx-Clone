@@ -9,7 +9,7 @@
 .history
 .svn/
 
-.VsCodeCounter/
+.VSCodeCounter/
 
 # IntelliJ related
 *.iml

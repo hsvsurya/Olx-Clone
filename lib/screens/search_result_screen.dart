@@ -45,76 +45,79 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
                   ),
                 );
               },
-              child: Card(
-                child: Column(
-                  children: [
-                    Stack(
-                      children: [
-                        Container(
-                          height: 150,
-                          width: MediaQuery.of(context).size.width / 2,
-                          child: Image.network(
-                            widget.searchData[ind].imageUrl,
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                        Container(
-                          alignment: Alignment.topRight,
-                          padding: EdgeInsets.only(top: 10, right: 8),
-                          child: CircleAvatar(
-                            backgroundColor: Colors.white,
-                            child: IconButton(
-                              icon: widget.searchData[ind].isFav
-                                  ? Icon(Icons.favorite, color: Colors.pink)
-                                  : Icon(Icons.favorite_border),
-                              onPressed: () {
-                                setState(() {
-                                  // _favourites.toSet().toList();
-
-                                  // print(_favourites);
-                                  // length = _favourites.length;
-                                  widget.searchData[ind].isFav =
-                                      !widget.searchData[ind].isFav;
-                                });
-                              },
-                              color: Colors.black,
+              child: Hero(
+                tag: widget.searchData[ind].id,
+                child: Card(
+                  child: Column(
+                    children: [
+                      Stack(
+                        children: [
+                          Container(
+                            height: 150,
+                            width: MediaQuery.of(context).size.width / 2,
+                            child: Image.network(
+                              widget.searchData[ind].imageUrl,
+                              fit: BoxFit.cover,
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                    Container(
-                      padding: EdgeInsets.only(top: 18, left: 5),
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        widget.searchData[ind].price,
-                        textAlign: TextAlign.start,
-                      ),
-                    ),
-                    Container(
-                      alignment: Alignment.centerLeft,
-                      padding: const EdgeInsets.only(top: 10, left: 5),
-                      child: Text(widget.searchData[ind].productName),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 8.0),
-                      child: Row(
-                        // mainAxisAlignment:
-                        //     MainAxisAlignment.spaceAround,
-                        children: [
-                          Icon(
-                            Icons.location_on_outlined,
-                            color: Colors.black45,
+                          Container(
+                            alignment: Alignment.topRight,
+                            padding: EdgeInsets.only(top: 10, right: 8),
+                            child: CircleAvatar(
+                              backgroundColor: Colors.white,
+                              child: IconButton(
+                                icon: widget.searchData[ind].isFav
+                                    ? Icon(Icons.favorite, color: Colors.pink)
+                                    : Icon(Icons.favorite_border),
+                                onPressed: () {
+                                  setState(() {
+                                    // _favourites.toSet().toList();
+
+                                    // print(_favourites);
+                                    // length = _favourites.length;
+                                    widget.searchData[ind].isFav =
+                                        !widget.searchData[ind].isFav;
+                                  });
+                                },
+                                color: Colors.black,
+                              ),
+                            ),
                           ),
-                          Text(
-                            widget.searchData[ind].location,
-                            style: TextStyle(color: Colors.black45),
-                          ),
-                          // Text('${_favourites.length}'),
                         ],
                       ),
-                    ),
-                  ],
+                      Container(
+                        padding: EdgeInsets.only(top: 18, left: 5),
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          widget.searchData[ind].price,
+                          textAlign: TextAlign.start,
+                        ),
+                      ),
+                      Container(
+                        alignment: Alignment.centerLeft,
+                        padding: const EdgeInsets.only(top: 10, left: 5),
+                        child: Text(widget.searchData[ind].productName),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: Row(
+                          // mainAxisAlignment:
+                          //     MainAxisAlignment.spaceAround,
+                          children: [
+                            Icon(
+                              Icons.location_on_outlined,
+                              color: Colors.black45,
+                            ),
+                            Text(
+                              widget.searchData[ind].location,
+                              style: TextStyle(color: Colors.black45),
+                            ),
+                            // Text('${_favourites.length}'),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             );

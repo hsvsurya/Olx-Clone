@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:olx_clone/Models/chat_users.dart';
 import 'package:olx_clone/screens/chat_detail_screen.dart';
 import 'package:provider/provider.dart';
+import 'package:page_transition/page_transition.dart';
 
 class ChatScreen extends StatefulWidget {
   static const routeName = 'chat-screen';
@@ -11,7 +12,7 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
-  // NOTE - This varible is used to update the message in the chat screen everytime a new message is sent
+  // NOTE - This variable is used to update the message in the chat screen everytime a new message is sent
 
   List<int> _numOfmsgs = List.generate(6, (index) => 0);
 
@@ -28,12 +29,10 @@ class _ChatScreenState extends State<ChatScreen> {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                  builder: (_) {
-                    return ChatDetailScreen(
-                      index: ind,
-                    );
-                  },
+                PageTransition(
+                  child: ChatDetailScreen(index: ind),
+                  type: PageTransitionType.fade,
+                  duration: Duration(milliseconds: 300),
                 ),
               ).then((value) {
                 setState(() {

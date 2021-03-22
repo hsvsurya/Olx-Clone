@@ -45,25 +45,6 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                     ),
                   ),
                 ),
-                Container(
-                  alignment: Alignment.topRight,
-                  padding: EdgeInsets.only(top: 10, right: 8),
-                  child: CircleAvatar(
-                    backgroundColor: Colors.white,
-                    child: IconButton(
-                      icon: productData[widget.index].isFav
-                          ? Icon(Icons.favorite, color: Colors.pink)
-                          : Icon(Icons.favorite_border),
-                      onPressed: () {
-                        setState(() {
-                          productData[widget.index].isFav =
-                              !productData[widget.index].isFav;
-                        });
-                      },
-                      color: Colors.black,
-                    ),
-                  ),
-                ),
               ],
             ),
           ),
@@ -182,6 +163,26 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
               ),
             ),
           ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          setState(() {
+            productData[widget.index].isFav = !productData[widget.index].isFav;
+          });
+        },
+        backgroundColor: Colors.white,
+        child: IconButton(
+          icon: productData[widget.index].isFav
+              ? Icon(Icons.favorite, color: Colors.pink)
+              : Icon(Icons.favorite_border),
+          onPressed: () {
+            setState(() {
+              productData[widget.index].isFav =
+                  !productData[widget.index].isFav;
+            });
+          },
+          color: Colors.black,
         ),
       ),
     );

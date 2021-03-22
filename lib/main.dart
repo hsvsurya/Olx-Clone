@@ -10,6 +10,7 @@ import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:olx_clone/Models/products.dart';
 import 'package:adaptive_dialog/adaptive_dialog.dart';
+import 'package:toast/toast.dart';
 
 BuildContext testContext;
 
@@ -221,6 +222,12 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   onPressed: () {
                     _controller.jumpToPage(3);
+                    Toast.show(
+                      'You cannot view or change any settings',
+                      context,
+                      duration: Toast.LENGTH_LONG,
+                      backgroundColor: Colors.black87,
+                    );
                     setState(() {
                       if (!_homeIcon && !_msgIcon && !_favIcon) {
                         _accountIcon = true;
@@ -253,12 +260,13 @@ class _MyHomePageState extends State<MyHomePage> {
         child: IconButton(
           // elevation: 0,
           onPressed: () {
-            showOkAlertDialog(
+            showAlertDialog(
               context: context,
-              alertStyle: AdaptiveStyle.adaptive,
-              title: 'Cannot add',
-              message: 'You cannot add your products right now',
-              okLabel: 'Ok',
+              message: 'You cannot add products right now',
+              title: 'Cannot Add',
+              actions: [
+                AlertDialogAction(label: 'ok', key: 0),
+              ],
             );
           },
           icon: Icon(

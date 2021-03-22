@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:olx_clone/Models/products.dart';
 import 'package:olx_clone/screens/product_detail_screen.dart';
+import 'package:page_transition/page_transition.dart';
 
 class ProductGrid extends StatefulWidget {
   final List<ProductData> products;
@@ -28,12 +29,11 @@ class _ProductGridState extends State<ProductGrid> {
           return InkWell(
             onTap: () {
               Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (_) {
-                    return ProductDetailScreen(
-                      index: widget.products[ind].id,
-                    );
-                  },
+                PageTransition(
+                  child: ProductDetailScreen(
+                    index: widget.products[ind].id,
+                  ),
+                  type: PageTransitionType.leftToRight,
                 ),
               );
             },

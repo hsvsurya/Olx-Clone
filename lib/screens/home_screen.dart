@@ -6,6 +6,7 @@ import 'package:olx_clone/screens/product_detail_screen.dart';
 import 'package:olx_clone/screens/search_result_screen.dart';
 import 'package:outline_search_bar/outline_search_bar.dart';
 import 'package:community_material_icon/community_material_icon.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 
@@ -19,14 +20,21 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   TextEditingController _search = TextEditingController();
   List _searchItems = [];
+
   Column _categories(Icon icon, String title, double padding,
-      {String routeName}) {
+      {Widget routeName}) {
     return Column(
       // mainAxisAlignment: MainAxisAlignment.center,
       children: [
         InkWell(
           onTap: () {
-            Navigator.of(context).pushNamed(routeName).then((value) {
+            Navigator.of(context)
+                .push(PageTransition(
+              child: routeName,
+              type: PageTransitionType.leftToRight,
+              duration: Duration(milliseconds: 300),
+            ))
+                .then((value) {
               setState(() {});
             });
           },
@@ -110,12 +118,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                   if (_searchItems.isNotEmpty) {
                                     Navigator.push(
                                       context,
-                                      MaterialPageRoute(
-                                        builder: (_) {
-                                          return SearchResultScreen(
-                                            searchData: _searchItems,
-                                          );
-                                        },
+                                      PageTransition(
+                                        child: SearchResultScreen(
+                                          searchData: _searchItems,
+                                        ),
+                                        type: PageTransitionType.topToBottom,
+                                        duration: Duration(milliseconds: 300),
                                       ),
                                     ).then((val) {
                                       setState(() {});
@@ -123,34 +131,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                   } else {
                                     /**NOTE - If the entered value is not found an empty page is pushed
                                      * saying there are no products with the keyword you entered.
-                                    */
+                                     */
 
                                     Navigator.push(
                                       context,
-                                      MaterialPageRoute(
-                                        builder: (_) {
-                                          return Scaffold(
-                                            appBar: AppBar(
-                                              elevation: 0,
-                                              iconTheme: IconThemeData(
-                                                color: Colors.black,
-                                              ),
-                                              title: Text(
-                                                'Search Items',
-                                                style: TextStyle(
-                                                  color: Colors.black,
-                                                ),
-                                              ),
-                                              backgroundColor: Colors.white,
-                                            ),
-                                            body: Center(
-                                              child: Text(
-                                                'There are no results with keyword $str',
-                                                style: TextStyle(fontSize: 20),
-                                              ),
-                                            ),
-                                          );
-                                        },
+                                      PageTransition(
+                                        child: NotFoundScreen(str: str),
+                                        type: PageTransitionType.topToBottom,
+                                        duration: Duration(milliseconds: 300),
                                       ),
                                     );
                                   }
@@ -184,10 +172,10 @@ class _HomeScreenState extends State<HomeScreen> {
                               onPressed: () {
                                 Navigator.push(
                                   context,
-                                  MaterialPageRoute(
-                                    builder: (_) {
-                                      return CategoryListScreen();
-                                    },
+                                  PageTransition(
+                                    child: CategoryListScreen(),
+                                    type: PageTransitionType.rightToLeft,
+                                    duration: Duration(milliseconds: 300),
                                   ),
                                 );
                               },
@@ -212,7 +200,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           'Olx Cars(auto)',
                           25.0,
-                          routeName: OlxAutoCategory.routeName,
+                          routeName: OlxAutoCategory(),
                         ),
                         _categories(
                           Icon(
@@ -222,7 +210,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           'Properties',
                           40.0,
-                          routeName: PropertyScreen.routeName,
+                          routeName: PropertyScreen(),
                         ),
                         _categories(
                           Icon(
@@ -232,7 +220,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           'Mobiles',
                           40.0,
-                          routeName: MobileCategory.routeName,
+                          routeName: MobileCategory(),
                         ),
                         _categories(
                           Icon(
@@ -242,7 +230,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           'Jobs',
                           50.0,
-                          routeName: JobsCategory.routeName,
+                          routeName: JobsCategory(),
                         ),
                         _categories(
                           Icon(
@@ -252,7 +240,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           'Bikes',
                           40.0,
-                          routeName: BikesCategory.routeName,
+                          routeName: BikesCategory(),
                         ),
                         _categories(
                           Icon(
@@ -262,7 +250,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           'Electronics &\n Appliances',
                           40.0,
-                          routeName: ElectronicCategory.routeName,
+                          routeName: ElectronicCategory(),
                         ),
                         _categories(
                           Icon(
@@ -273,7 +261,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           'Commercial Vehcles &\n '
                           '            Spares',
                           40.0,
-                          routeName: VehicleSpareCategory.routeName,
+                          routeName: VehicleSpareCategory(),
                         ),
                         _categories(
                           Icon(
@@ -283,7 +271,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           'Furniture',
                           40.0,
-                          routeName: FurnitureCategory.routeName,
+                          routeName: FurnitureCategory(),
                         ),
                         _categories(
                           Icon(
@@ -293,7 +281,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           'Fashion',
                           40.0,
-                          routeName: FashionCategory.routeName,
+                          routeName: FashionCategory(),
                         ),
                         _categories(
                           Icon(
@@ -303,7 +291,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           'Books Sports & Hobbies',
                           40.0,
-                          routeName: SportsCategory.routeName,
+                          routeName: SportsCategory(),
                         ),
                         _categories(
                           Icon(
@@ -313,7 +301,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           'Pets',
                           40.0,
-                          routeName: PetsCategory.routeName,
+                          routeName: PetsCategory(),
                         ),
                         _categories(
                           Icon(
@@ -323,7 +311,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           'Services',
                           40.0,
-                          routeName: ServicesCategory.routeName,
+                          routeName: ServicesCategory(),
                         ),
                       ],
 
@@ -364,10 +352,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
                       Navigator.push(
                         context,
-                        MaterialPageRoute(
-                          builder: (BuildContext c) => ProductDetailScreen(
+                        PageTransition(
+                          child: ProductDetailScreen(
                             index: ind,
                           ),
+                          type: PageTransitionType.fade,
+                          duration: Duration(milliseconds: 300),
                         ),
                       ).then((val) {
                         setState(() {});
@@ -464,6 +454,36 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
+class NotFoundScreen extends StatelessWidget {
+  final String str;
+  NotFoundScreen({this.str});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        iconTheme: IconThemeData(
+          color: Colors.black,
+        ),
+        title: Text(
+          'Search Items',
+          style: TextStyle(
+            color: Colors.black,
+          ),
+        ),
+        backgroundColor: Colors.white,
+      ),
+      body: Center(
+        child: Text(
+          'There are no results with keyword $str',
+          style: TextStyle(fontSize: 20),
+        ),
+      ),
+    );
+  }
+}
+
 class CategoryListScreen extends StatefulWidget {
   @override
   _CategoryListScreenState createState() => _CategoryListScreenState();
@@ -544,6 +564,7 @@ class _CategoryListScreenState extends State<CategoryListScreen> {
       'route': ServicesCategory.routeName,
     },
   ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
