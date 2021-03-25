@@ -33,7 +33,9 @@ class _ProductGridState extends State<ProductGrid> {
                   child: ProductDetailScreen(
                     index: widget.products[ind].id,
                   ),
-                  type: PageTransitionType.leftToRight,
+                  type: ind % 2 == 0
+                      ? PageTransitionType.leftToRight
+                      : PageTransitionType.rightToLeft,
                 ),
               );
             },

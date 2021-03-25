@@ -152,16 +152,27 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
                   icon: Icon(Icons.send),
                   onPressed: () {
                     String msg = _messageController.text.toString();
-                    setState(() {
-                      chatMessage[widget.index].message.add(
-                            Message(
-                              messageText: msg.toString(),
-                              sender: true,
-                            ),
-                          );
-                      _numOfMsgs++;
-                      _messageController.clear();
-                    });
+
+                    //NOTE - Checking for empty message
+
+                    if (msg.isEmpty || msg.trim() == '') {
+                      showDialog(
+                          context: context,
+                          builder: (_) {
+                            return ErrorMessageDialog();
+                          });
+                    } else {
+                      setState(() {
+                        chatMessage[widget.index].message.add(
+                              Message(
+                                messageText: msg.toString(),
+                                sender: true,
+                              ),
+                            );
+                        _numOfMsgs++;
+                        _messageController.clear();
+                      });
+                    }
                   },
                 ),
               ),
@@ -169,6 +180,28 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
           ),
         ],
       ),
+    );
+  }
+}
+
+class ErrorMessageDialog extends StatelessWidget {
+  const ErrorMessageDialog({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: Text('Empty message'),
+      content: Text('Cannot send empty messages'),
+      actions: [
+        TextButton(
+          child: Text('Ok'),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        )
+      ],
     );
   }
 }

@@ -31,7 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
             Navigator.of(context)
                 .push(PageTransition(
               child: routeName,
-              type: PageTransitionType.leftToRight,
+              type: PageTransitionType.fade,
               duration: Duration(milliseconds: 300),
             ))
                 .then((value) {
@@ -122,7 +122,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         child: SearchResultScreen(
                                           searchData: _searchItems,
                                         ),
-                                        type: PageTransitionType.topToBottom,
+                                        type: PageTransitionType.bottomToTop,
                                         duration: Duration(milliseconds: 300),
                                       ),
                                     ).then((val) {
@@ -137,7 +137,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       context,
                                       PageTransition(
                                         child: NotFoundScreen(str: str),
-                                        type: PageTransitionType.topToBottom,
+                                        type: PageTransitionType.bottomToTop,
                                         duration: Duration(milliseconds: 300),
                                       ),
                                     );
@@ -356,7 +356,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           child: ProductDetailScreen(
                             index: ind,
                           ),
-                          type: PageTransitionType.fade,
+                          type: ind % 2 == 0
+                              ? PageTransitionType.leftToRight
+                              : PageTransitionType.rightToLeft,
                           duration: Duration(milliseconds: 300),
                         ),
                       ).then((val) {
