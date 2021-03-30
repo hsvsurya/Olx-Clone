@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:olx_clone/Models/chat_users.dart';
 import 'package:olx_clone/screens/account_screen.dart';
+import 'package:olx_clone/screens/add_product.dart';
 import 'package:olx_clone/screens/ads_screen.dart';
 import 'package:olx_clone/screens/category_screen.dart';
 import 'package:olx_clone/screens/chats_screen.dart';
@@ -95,6 +96,7 @@ class MyApp extends StatelessWidget {
           SportsCategory.routeName: (ctx) => SportsCategory(),
           PetsCategory.routeName: (ctx) => PetsCategory(),
           ServicesCategory.routeName: (ctx) => ServicesCategory(),
+          AddProductScreen.routeName: (ctx) => AddProductScreen()
         },
       ),
     );
@@ -260,14 +262,15 @@ class _MyHomePageState extends State<MyHomePage> {
         child: IconButton(
           // elevation: 0,
           onPressed: () {
-            showAlertDialog(
-              context: context,
-              message: 'You cannot add products right now',
-              title: 'Cannot Add',
-              actions: [
-                AlertDialogAction(label: 'ok', key: 0),
-              ],
-            );
+            Navigator.of(context).pushNamed(AddProductScreen.routeName);
+            // showAlertDialog(
+            //   context: context,
+            //   message: 'You cannot add products right now',
+            //   title: 'Cannot Add',
+            //   actions: [
+            //     AlertDialogAction(label: 'ok', key: 0),
+            //   ],
+            // );
           },
           icon: Icon(
             Icons.add,
