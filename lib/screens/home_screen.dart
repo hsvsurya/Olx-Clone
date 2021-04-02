@@ -21,6 +21,12 @@ class _HomeScreenState extends State<HomeScreen> {
   TextEditingController _search = TextEditingController();
   List _searchItems = [];
 
+  @override
+  void initState() {
+    super.initState();
+    setState(() {});
+  }
+
   Column _categories(Icon icon, String title, double padding,
       {Widget routeName}) {
     return Column(
@@ -53,8 +59,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    setState(() {});
     var productData = Provider.of<Product>(context).product;
-
     return Scaffold(
       body: Container(
         padding: const EdgeInsets.only(top: 18),
@@ -258,7 +264,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             size: 40,
                             color: Colors.cyan[800],
                           ),
-                          'Commercial Vehcles &\n '
+                          'Commercial Vehicles &\n '
                           '            Spares',
                           40.0,
                           routeName: VehicleSpareCategory(),
@@ -376,10 +382,18 @@ class _HomeScreenState extends State<HomeScreen> {
                                 Container(
                                   height: 150,
                                   width: MediaQuery.of(context).size.width / 2,
-                                  child: Image.network(
-                                    productData[ind].imageUrl,
-                                    fit: BoxFit.cover,
-                                  ),
+                                  child: productData[ind]
+                                          .imageUrl
+                                          .toString()
+                                          .startsWith('http')
+                                      ? Image.network(
+                                          productData[ind].imageUrl.toString(),
+                                          fit: BoxFit.cover,
+                                        )
+                                      : Image.file(
+                                          productData[ind].imageUrl,
+                                          fit: BoxFit.cover,
+                                        ),
                                 ),
 
                                 // NOTE - Adding favourites
@@ -417,7 +431,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             Container(
                               alignment: Alignment.centerLeft,
                               padding: const EdgeInsets.only(top: 10, left: 5),
-                              child: Text(productData[ind].productName),
+                              child:
+                                  Text(productData[ind].productName.toString()),
                             ),
                             Padding(
                               padding: const EdgeInsets.only(top: 8.0),
@@ -428,7 +443,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     color: Colors.black45,
                                   ),
                                   Text(
-                                    productData[ind].location,
+                                    productData[ind].location.toString(),
                                     style: TextStyle(color: Colors.black45),
                                   ),
                                 ],
@@ -458,6 +473,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
 class NotFoundScreen extends StatelessWidget {
   final String str;
+
   NotFoundScreen({this.str});
 
   @override

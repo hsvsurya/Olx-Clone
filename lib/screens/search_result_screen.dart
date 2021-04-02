@@ -5,7 +5,9 @@ import 'product_detail_screen.dart';
 
 class SearchResultScreen extends StatefulWidget {
   final List searchData;
+
   SearchResultScreen({this.searchData});
+
   @override
   _SearchResultScreenState createState() => _SearchResultScreenState();
 }
@@ -56,10 +58,17 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
                         Container(
                           height: 150,
                           width: MediaQuery.of(context).size.width / 2,
-                          child: Image.network(
-                            widget.searchData[ind].imageUrl,
-                            fit: BoxFit.cover,
-                          ),
+                          child: widget.searchData[ind].imageUrl
+                                  .toString()
+                                  .startsWith('http')
+                              ? Image.network(
+                                  widget.searchData[ind].imageUrl,
+                                  fit: BoxFit.cover,
+                                )
+                              : Image.file(
+                                  widget.searchData[ind].imageUrl,
+                                  fit: BoxFit.cover,
+                                ),
                         ),
                         Container(
                           alignment: Alignment.topRight,

@@ -84,10 +84,18 @@ class _FavScreenState extends State<FavScreen> {
                               Container(
                                 height: 150,
                                 width: MediaQuery.of(context).size.width / 2,
-                                child: Image.network(
-                                  _favourites[ind].imageUrl,
-                                  fit: BoxFit.cover,
-                                ),
+                                child: _favourites[ind]
+                                        .imageUrl
+                                        .toString()
+                                        .startsWith('http')
+                                    ? Image.network(
+                                        _favourites[ind].imageUrl,
+                                        fit: BoxFit.cover,
+                                      )
+                                    : Image.file(
+                                        _favourites[ind].imageUrl,
+                                        fit: BoxFit.cover,
+                                      ),
                               ),
                               Container(
                                 alignment: Alignment.topRight,

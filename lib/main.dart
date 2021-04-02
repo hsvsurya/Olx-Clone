@@ -10,7 +10,6 @@ import 'package:olx_clone/screens/home_screen.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:olx_clone/Models/products.dart';
-import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:toast/toast.dart';
 
 BuildContext testContext;
@@ -83,6 +82,7 @@ class MyApp extends StatelessWidget {
         ),
         debugShowCheckedModeBanner: false,
         routes: {
+          HomeScreen.routeName: (ctx) => HomeScreen(),
           ChatScreen.routeName: (ctx) => ChatScreen(),
           PropertyScreen.routeName: (ctx) => PropertyScreen(),
           OlxAutoCategory.routeName: (ctx) => OlxAutoCategory(),
@@ -109,18 +109,34 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  HomeScreen homeScreen;
+  Widget currentScreen;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   PageController _controller = PageController(initialPage: 0);
   bool _homeIcon = true;
   bool _msgIcon = false;
   bool _favIcon = false;
   bool _accountIcon = false;
 
-  List<Widget> pages = [
+  final List<Widget> pages = [
     HomeScreen(),
     ChatScreen(),
     FavScreen(),
     AccountScreen(),
   ];
+
+  // List<BottomNavigationBarItem> items = [
+  //   BottomNavigationBarItem(icon: Icon(Icons.home),label: 'Home'),
+  //   BottomNavigationBarItem(icon: Icon(Icons.messenger),label: 'Chat'),
+  //   BottomNavigationBarItem(icon: Icon(Icons.favorite),label: 'Favourites'),
+  //   BottomNavigationBarItem(icon: Icon(Icons.person),label: 'Account'),
+  // ];
+  // int ind = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -144,7 +160,7 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              // NOTE - Home Screen
+// NOTE - Home Screen
 
               Padding(
                 padding: const EdgeInsets.only(left: 8.0),
@@ -168,7 +184,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   },
                 ),
               ),
-              // NOTE - Chat Screen
+// NOTE - Chat Screen
 
               Padding(
                 padding: const EdgeInsets.only(right: 60.0),
@@ -192,7 +208,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   },
                 ),
               ),
-              // NOTE - Favourite Screen
+// NOTE - Favourite Screen
 
               IconButton(
                 icon: Icon(
@@ -213,7 +229,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   });
                 },
               ),
-              // NOTE - Account Screen
+// NOTE - Account Screen
 
               Padding(
                 padding: const EdgeInsets.only(right: 8.0),
@@ -262,15 +278,31 @@ class _MyHomePageState extends State<MyHomePage> {
         child: IconButton(
           // elevation: 0,
           onPressed: () {
-            Navigator.of(context).pushNamed(AddProductScreen.routeName);
-            // showAlertDialog(
-            //   context: context,
-            //   message: 'You cannot add products right now',
-            //   title: 'Cannot Add',
-            //   actions: [
-            //     AlertDialogAction(label: 'ok', key: 0),
-            //   ],
-            // );
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(
+                  'The product will not be saved and will be gone after quitting the app as it is not connected to any database.',
+                  maxLines: 3,
+                ),
+                action: SnackBarAction(
+                  label: 'Ok',
+                  onPressed: (){
+                    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                  },
+                ),
+                behavior: SnackBarBehavior.floating,
+                duration: Duration(seconds: 9),
+              ),
+            );
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) {
+                return AddProductScreen();
+              }),
+            ).then((value) {
+              homeScreen.createState().initState();
+              // setState(() {});
+            });
           },
           icon: Icon(
             Icons.add,

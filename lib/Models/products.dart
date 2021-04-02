@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -20,12 +22,13 @@ class ProductDetailData {
   final String brand;
   final String model;
   final String usage;
+
   ProductDetailData({this.brand, this.model, this.usage});
 }
 
 class ProductData {
   final int id;
-  final String imageUrl;
+  final dynamic imageUrl;
   final String desc;
   final String price;
   bool isFav;
@@ -272,4 +275,30 @@ class Product extends ChangeNotifier {
       ),
     ),
   ];
+
+  void addProduct(
+      {File image,
+      String productName,
+      String location,
+      String model,
+      String brand,
+      String desc,
+      String usage,
+      String price}) {
+    product.add(ProductData(
+      id: product.length,
+      productName: productName.toString(),
+      desc: desc.toString(),
+      imageUrl: image,
+      isFav: false,
+      location: location.toString(),
+      price: '₹ ${price.toString()}',
+      productDetailData: ProductDetailData(
+        brand: brand.toString(),
+        model: model.toString(),
+        usage: model.toString(),
+      ),
+    ));
+    notifyListeners();
+  }
 }

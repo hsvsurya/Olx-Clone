@@ -47,10 +47,17 @@ class _ProductGridState extends State<ProductGrid> {
                       Container(
                         height: 150,
                         width: MediaQuery.of(context).size.width / 2,
-                        child: Image.network(
-                          widget.products[ind].imageUrl,
-                          fit: BoxFit.cover,
-                        ),
+                        child: widget.products[ind].imageUrl
+                                .toString()
+                                .startsWith('http')
+                            ? Image.network(
+                                widget.products[ind].imageUrl,
+                                fit: BoxFit.cover,
+                              )
+                            : Image.file(
+                                widget.products[ind].imageUrl,
+                                fit: BoxFit.cover,
+                              ),
                       ),
                       Container(
                         alignment: Alignment.topRight,

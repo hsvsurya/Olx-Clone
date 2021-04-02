@@ -9,13 +9,16 @@ import 'package:provider/provider.dart';
 
 class ProductDetailScreen extends StatefulWidget {
   final int index;
+
   ProductDetailScreen({this.index});
+
   @override
   _ProductDetailScreenState createState() => _ProductDetailScreenState();
 }
 
 class _ProductDetailScreenState extends State<ProductDetailScreen> {
   int ind;
+
   @override
   Widget build(BuildContext context) {
     ind = Random().nextInt(5);
@@ -39,10 +42,18 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
               children: [
                 Container(
                   child: Center(
-                    child: Image.network(
-                      '${productData[widget.index].imageUrl}',
-                      fit: BoxFit.cover,
-                    ),
+                    child: productData[widget.index]
+                            .imageUrl
+                            .toString()
+                            .startsWith('http')
+                        ? Image.network(
+                            '${productData[widget.index].imageUrl}',
+                            fit: BoxFit.cover,
+                          )
+                        : Image.file(
+                            productData[widget.index].imageUrl,
+                            fit: BoxFit.cover,
+                          ),
                   ),
                 ),
               ],
