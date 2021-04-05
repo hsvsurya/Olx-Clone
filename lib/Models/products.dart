@@ -276,15 +276,17 @@ class Product extends ChangeNotifier {
     ),
   ];
 
-  void addProduct(
-      {File image,
-      String productName,
-      String location,
-      String model,
-      String brand,
-      String desc,
-      String usage,
-      String price}) {
+  void addProduct({
+    File image,
+    String productName,
+    String location,
+    String model,
+    String brand,
+    String desc,
+    String usage,
+    String price,
+    Category value,
+  }) {
     product.add(ProductData(
       id: product.length,
       productName: productName.toString(),
@@ -293,10 +295,11 @@ class Product extends ChangeNotifier {
       isFav: false,
       location: location.toString(),
       price: '₹ ${price.toString()}',
+      category: value,
       productDetailData: ProductDetailData(
         brand: brand.toString(),
         model: model.toString(),
-        usage: model.toString(),
+        usage: usage.toString(),
       ),
     ));
     notifyListeners();

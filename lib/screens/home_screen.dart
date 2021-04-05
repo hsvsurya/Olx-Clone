@@ -382,6 +382,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                 Container(
                                   height: 150,
                                   width: MediaQuery.of(context).size.width / 2,
+
+                                  // NOTE - Checks whether the image is network or file type
+
                                   child: productData[ind]
                                           .imageUrl
                                           .toString()

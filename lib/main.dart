@@ -130,14 +130,6 @@ class _MyHomePageState extends State<MyHomePage> {
     AccountScreen(),
   ];
 
-  // List<BottomNavigationBarItem> items = [
-  //   BottomNavigationBarItem(icon: Icon(Icons.home),label: 'Home'),
-  //   BottomNavigationBarItem(icon: Icon(Icons.messenger),label: 'Chat'),
-  //   BottomNavigationBarItem(icon: Icon(Icons.favorite),label: 'Favourites'),
-  //   BottomNavigationBarItem(icon: Icon(Icons.person),label: 'Account'),
-  // ];
-  // int ind = 0;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -160,7 +152,7 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-// NOTE - Home Screen
+              // NOTE - Home Screen
 
               Padding(
                 padding: const EdgeInsets.only(left: 8.0),
@@ -184,7 +176,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   },
                 ),
               ),
-// NOTE - Chat Screen
+              // NOTE - Chat Screen
 
               Padding(
                 padding: const EdgeInsets.only(right: 60.0),
@@ -195,6 +187,12 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   onPressed: () {
                     _controller.jumpToPage(1);
+                    Toast.show(
+                      'Chats will not be saved and new chats cannot be added',
+                      context,
+                      duration: Toast.LENGTH_LONG,
+                      backgroundColor: Colors.black87,
+                    );
                     setState(() {
                       if (!_homeIcon && !_accountIcon && !_favIcon) {
                         _msgIcon = true;
@@ -208,7 +206,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   },
                 ),
               ),
-// NOTE - Favourite Screen
+              // NOTE - Favourite Screen
 
               IconButton(
                 icon: Icon(
@@ -229,7 +227,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   });
                 },
               ),
-// NOTE - Account Screen
+              // NOTE - Account Screen
 
               Padding(
                 padding: const EdgeInsets.only(right: 8.0),
@@ -286,7 +284,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 action: SnackBarAction(
                   label: 'Ok',
-                  onPressed: (){
+                  onPressed: () {
                     ScaffoldMessenger.of(context).hideCurrentSnackBar();
                   },
                 ),
@@ -299,10 +297,7 @@ class _MyHomePageState extends State<MyHomePage> {
               MaterialPageRoute(builder: (_) {
                 return AddProductScreen();
               }),
-            ).then((value) {
-              homeScreen.createState().initState();
-              // setState(() {});
-            });
+            );
           },
           icon: Icon(
             Icons.add,
