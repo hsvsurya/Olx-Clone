@@ -125,6 +125,8 @@ class _AddProductScreenState extends State<AddProductScreen> {
     usageValue = usageValues[0];
   }
 
+  // NOTE - Get Image
+
   Future getImage() async {
     final pickedFile = await picker.getImage(source: ImageSource.gallery);
     setState(() {
@@ -134,8 +136,10 @@ class _AddProductScreenState extends State<AddProductScreen> {
     });
   }
 
-  Widget textField(
-      String label, String hint, TextEditingController controller) {
+  // NOTE - Text Field
+
+  Widget textField(String label, String hint, TextEditingController controller,
+      FocusScopeNode focus) {
     return Container(
       padding: EdgeInsets.all(10),
       child: TextFormField(
@@ -150,6 +154,12 @@ class _AddProductScreenState extends State<AddProductScreen> {
             ? TextInputType.number
             : TextInputType.name,
         controller: controller,
+        onEditingComplete: () => focus.nextFocus(),
+        textInputAction:
+            label != 'Usage' ? TextInputAction.next : TextInputAction.done,
+        onFieldSubmitted: (_) {
+          if (label == 'Usage') focus.unfocus();
+        },
       ),
     );
   }
@@ -157,6 +167,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
   @override
   Widget build(BuildContext context) {
     final productData = Provider.of<Product>(context);
+    final focus = FocusScope.of(context);
 
     // NOTE - Adding product
 
@@ -234,9 +245,9 @@ class _AddProductScreenState extends State<AddProductScreen> {
                       label: Text('Add Image'),
                     ),
             ),
-            textField('Product Name', '', _productName),
-            textField('Price', '₹ xxx', _price),
-            textField('Location', 'Place,State', _location),
+            textField('Product Name', '', _productName, focus),
+            textField('Price', '₹ xxx', _price, focus),
+            textField('Location', 'Place,State', _location, focus),
             Container(
               padding: EdgeInsets.all(10),
               child: TextFormField(
@@ -251,14 +262,15 @@ class _AddProductScreenState extends State<AddProductScreen> {
                 controller: _desc,
               ),
             ),
-            textField('Brand', '', _brand),
-            textField('Model', '', _model),
+            textField('Brand', '', _brand, focus),
+            textField('Model', '', _model, focus),
             Row(
               children: [
                 Container(
-                    width: MediaQuery.of(context).size.width / 2,
-                    padding: EdgeInsets.all(20),
-                    child: textField('Usage', '', _usage)),
+                  width: MediaQuery.of(context).size.width / 2,
+                  padding: EdgeInsets.all(20),
+                  child: textField('Usage', '', _usage, focus),
+                ),
                 Container(
                   padding: EdgeInsets.only(left: 10),
                   child: DropdownButton(
